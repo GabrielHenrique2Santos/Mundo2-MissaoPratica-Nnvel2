@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuários de Teste via REST</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container bg-warning">
+  <h1>Usuários de Teste via REST</h1>
+
+  <p>Os usuarios deste exemplo sao fornecidos pela API de testes <a href="https://reqres.in" target="_blank">reqres.in</a>.</p>
+
+  <div id="usuarios" class="container-fluid">
+    <div class="row">
+      <div class="col-4" v-for="(user, index) in users" :key="index">
+        <div class="card p-2 m-3">
+          <img class="card-img-top" :src="user.avatar" alt="Imagem do usuário">
+          <div class="card-body">
+            <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+            <p class="card-text">{{ user.email }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#usuarios',
+      data: function() {
+        return {
+          users: []
+        };
+      },
+      mounted: function() {
+        this.loadUsers();
+      },
+      methods: {
+        loadUsers: function() {
+          var self = this;
+          $.ajax({
+            url: 'https://reqres.in/api/users?per_page=10',
+            method: 'GET',
+            success: function(response) {
+              self.users = response.data;
+            }
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

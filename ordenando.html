@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ordenando array</title>
+</head>
+<body>
+    <h1>Ordenando array</h1>
+
+    <p>Insira os valores do array separados por vírgula:</p>
+    <input type="text" id="input-array">
+    <button onclick="add()">Adicionar ao array</button>
+    <br><br>
+    <p>Array atual:</p>
+    <p id="current-array"></p>
+
+    <button onclick="ordenar()">Ordenar</button>
+    <button onclick="misturar()">Misturar</button>
+
+    <script>
+        var array = [];
+
+        function add() {
+            var input = document.getElementById("input-array").value;
+            var values = input.split(",");
+            for (var i = 0; i < values.length; i++) {
+                array.push(Number(values[i]));
+            }
+            showArray();
+        }
+
+        function showArray() {
+            var currentArray = document.getElementById("current-array");
+            currentArray.innerHTML = "[" + array.join(", ") + "]";
+        }
+
+        function ordenar() {
+            array.sort(function(a, b) {return a - b});
+            showArray();
+        }
+
+        function misturar() {
+            for (var i = 0; i < array.length; i++) {
+                var randomIndex = Math.floor(Math.random() * array.length);
+                var temp = array[i];
+                array[i] = array[randomIndex];
+                array[randomIndex] = temp;
+            }
+            showArray();
+        }
+    </script>
+</body>
+</html>
